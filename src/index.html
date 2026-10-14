@@ -1,17 +1,49 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="data:," />
-    <title>Evil's Home</title>
-  </head>
-  <body>
-    <div class="profile-panel"></div>
 
-    <main>
-      <!-- Main content here> -->
-    </main>
-    <script type="module" src="./main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <title>Evil's Home</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <nav aria-label="Main navigation">
+    <details class="profile-panel">
+      <summary>Menu</summary>
+      <ul>
+        <li><a href="./index.html">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+      </ul>
+    </details>
+  </nav>
+
+  <h1>Welcome.</h1>
+  <main>
+    <!-- Main content here> -->
+  </main>
+
+  <script>
+    (function () {
+      const selector = 'details.profile-panel';
+
+      // Close any open details if the click is outside it
+      document.addEventListener('click', (e) => {
+        document.querySelectorAll(`${selector}[open]`).forEach((d) => {
+          if (!d.contains(e.target)) d.removeAttribute('open');
+        });
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          document.querySelectorAll(`${selector}[open]`).forEach((d) => d.removeAttribute('open'));
+        }
+      });
+    })();
+  </script>
+</body>
+
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <nav aria-label="Main navigation">
+        <details class="profile-panel">
+            <summary>Menu</summary>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./about.html">About</a></li>
+            </ul>
+        </details>
+    </nav>
+    <h1>About</h1>
+
+    <script>
+      (function () {
+        const selector = 'details.profile-panel';
+
+        // Close any open details if the click is outside it
+        document.addEventListener('click', (e) => {
+          document.querySelectorAll(`${selector}[open]`).forEach((d) => {
+            if (!d.contains(e.target)) d.removeAttribute('open');
+          });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' || e.key === 'Esc') {
+            document.querySelectorAll(`${selector}[open]`).forEach((d) => d.removeAttribute('open'));
+          }
+        });
+      })();
+    </script>
+</body>
+
+</html>

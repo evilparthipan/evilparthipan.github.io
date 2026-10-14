@@ -12,15 +12,52 @@ body {
   color: #e2e8f0;
 }
 
-.profile-panel{
-  display: block;
+.profile-panel {
   position: fixed;
   top: 3%;
   right: 1%;
   width: 18vh;
-  height: 6vh;
-  border-radius: 10vh 10vh;
-  background-color: #3f80d4;
+  min-width: 120px;
+  border-radius: 6vh;
+  background-color: #245a9e;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  overflow: hidden;
 }
 
+.profile-panel summary {
+  min-height: 6vh;
+  padding: 0 1rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  list-style: none;
+}
+
+.profile-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-panel summary:focus-visible,
+.profile-panel a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+.profile-panel ul {
+  margin: 0;
+  padding: 0 1rem 0.75rem;
+  list-style: none;
+  text-align: center;
+}
+
+.profile-panel a {
+  display: block;
+  padding: 0.35rem 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.profile-panel a:hover,
+.profile-panel a:focus-visible {
+  text-decoration: underline;
+}
