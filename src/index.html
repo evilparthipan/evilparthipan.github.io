@@ -7,15 +7,17 @@
   <link rel="icon" href="data:," />
   <title>Evil's Home</title>
   <link rel="stylesheet" href="./style.css" />
+  <script type="module" src="./profile-panel.js"></script>
 </head>
 
 <body>
   <nav aria-label="Main navigation">
-    <details class="profile-panel">
+    <details class="profile-panel" x-data @click.outside="$el.open = false"
+      @keydown.escape.window="$el.open = false">
       <summary>Menu</summary>
       <ul>
         <li><a href="./index.html">Home</a></li>
-        <li><a href="./about.html">About</a></li>
+        <li><a href="https://github.com/evilparthipan">GitHub</a></li>
       </ul>
     </details>
   </nav>
@@ -25,25 +27,6 @@
     <!-- Main content here> -->
   </main>
 
-  <script>
-    (function () {
-      const selector = 'details.profile-panel';
-
-      // Close any open details if the click is outside it
-      document.addEventListener('click', (e) => {
-        document.querySelectorAll(`${selector}[open]`).forEach((d) => {
-          if (!d.contains(e.target)) d.removeAttribute('open');
-        });
-      });
-
-      // Close on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' || e.key === 'Esc') {
-          document.querySelectorAll(`${selector}[open]`).forEach((d) => d.removeAttribute('open'));
-        }
-      });
-    })();
-  </script>
 </body>
 
 </html>

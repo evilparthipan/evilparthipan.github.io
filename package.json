@@ -12,5 +12,8 @@
   "license": "MIT",
   "devDependencies": {
     "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "alpinejs": "^3.17.4"
   }
 }
