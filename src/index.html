@@ -1,32 +1,262 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="data:," />
-  <title>Evil's Home</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script type="module" src="./profile-panel.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S Parthipan – Playable ads &amp; graphics developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1d3a; --ink:#f2f6fc; --muted:#b3bfd4; --sand:#ffd24a; --teal:#b6ff00; --line:rgba(255,210,74,.28);
+  --font:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1.05rem;line-height:1.6;font-weight:300}
+body.nogl{background:radial-gradient(120% 80% at 70% 100%,#1f6fd0,var(--bg))}
+#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,24,52,.82) 0%,rgba(8,24,52,.55) 45%,rgba(8,24,52,0) 80%)}
+main,#hud{position:relative;z-index:2}
+main{max-width:46rem;padding:0 clamp(1.25rem,6vw,5rem)}
+section{padding:5.5rem 0 1rem}
+section.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:4rem 0}
+h1{font-size:clamp(3.4rem,11vw,7.5rem);line-height:.92;font-weight:800;letter-spacing:-.035em;margin:0 0 1.5rem}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:600;letter-spacing:-.02em;margin:0 0 1.25rem;line-height:1.15}
+p{margin:0 0 1rem;max-width:60ch}
+.lead{font-size:clamp(1.2rem,2.6vw,1.55rem);font-weight:400;line-height:1.4;max-width:34ch;color:var(--ink)}
+.muted{color:var(--muted)}
+.hero p{font-size:1.2rem;line-height:1.55;max-width:48ch}
+a{color:var(--sand);text-underline-offset:.2em;text-decoration-thickness:1px}
+a:hover{color:var(--teal)}
+a:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:2px}
+.cta{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:1.5rem}
+.cta a{font-weight:600}
+.job h3{margin:0;font-size:1.25rem;font-weight:600}
+.job .meta{color:var(--muted);margin:.1rem 0 1rem}
+ul.plain{list-style:none;margin:0;padding:0}
+.job li{padding-left:1.1rem;position:relative;margin-bottom:.8rem;max-width:60ch}
+.job li::before{content:"";position:absolute;left:0;top:.7em;width:.5rem;height:.5rem;background:var(--sand)}
+.works a{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;padding:.85rem 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:1.35rem;font-weight:600}
+.works li:last-child a{border-bottom:1px solid var(--line)}
+.works a span{font-size:.9rem;font-weight:300;color:var(--muted)}
+.works a:hover,.works a:focus-visible{color:var(--sand);padding-left:.5rem;transition:padding .2s}
+dl{margin:0;display:grid;grid-template-columns:minmax(7rem,9rem) 1fr;gap:.6rem 1.5rem}
+dt{color:var(--muted)} dd{margin:0}
+footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
+#hud{position:fixed;right:1rem;bottom:calc(.8rem + env(safe-area-inset-bottom,0px));font-size:.78rem;color:var(--muted);text-align:right;pointer-events:none;background:rgba(8,24,52,.65);padding:.3rem .6rem;border-radius:3px}
+@media (max-width:600px){#hud{display:none}dl{grid-template-columns:1fr}dt{margin-top:.5rem}}
+</style>
 </head>
-
 <body>
-  <nav aria-label="Main navigation">
-    <details class="profile-panel" x-data @click.outside="$el.open = false"
-      @keydown.escape.window="$el.open = false">
-      <summary>Menu</summary>
-      <ul>
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="https://github.com/evilparthipan">GitHub</a></li>
-      </ul>
-    </details>
-  </nav>
+<canvas id="bg" aria-hidden="true"></canvas>
+<main>
+  <section class="hero">
+    <h1>S Parthipan</h1>
+    <p>I’m a mathematics major and self-driven polymath. My work sits between pure mathematics and computer science, with a foundation in software engineering, graphics engines and algorithmic optimization.</p>
+    <p>I enjoy hard computational problems, and I collaborate fluently in English, Hindi, Tamil and Malayalam.</p>
+    <div class="cta">
+      <a href="#works">See my work</a>
+      <a href="mailto:parthipank51@gmail.com">parthipank51@gmail.com</a>
+    </div>
+  </section>
 
-  <h1>Welcome.</h1>
-  <main>
-    <!-- Main content here> -->
-  </main>
+  <section id="experience" class="job">
+    <h2>Experience</h2>
+    <h3>Playable Ads Developer, Amgo Games Pvt Ltd.</h3>
+    <p class="meta">May 2025 – present</p>
+    <ul class="plain">
+      <li>Port complex native mobile games to ultra-lightweight 3D playable ads using Three.js and Cocos Creator.</li>
+      <li>Use GPU optimizations such as instanced rendering to draw thousands of game objects in Three.js. The background of this page works the same way.</li>
+      <li>Built a custom CPU particle system that simulates 100,000+ particles at 60+ FPS on low-end mobile devices, using cache-friendly data structures and memory layout optimizations.</li>
+    </ul>
+  </section>
 
+  <section id="works" class="works">
+    <h2>Work</h2>
+    <ul class="plain">
+      <li><a href="https://wonderful-vacherin-d18f49.netlify.app/" target="_blank" rel="noopener">BWJ <span>Open live demo</span></a></li>
+      <li><a href="https://peaceful-genie-d3db25.netlify.app/" target="_blank" rel="noopener">HXS <span>Open live demo</span></a></li>
+      <li><a href="https://tranquil-sorbet-778968.netlify.app/" target="_blank" rel="noopener">Sand Drop <span>Open live demo</span></a></li>
+      <li><a href="https://bucolic-crostata-709548.netlify.app/" target="_blank" rel="noopener">SortDash <span>Open live demo</span></a></li>
+      <li><a href="https://shimmering-rabanadas-940e87.netlify.app/" target="_blank" rel="noopener">HexaSort <span>Open live demo</span></a></li>
+      <li><a href="https://bespoke-axolotl-f8f07a.netlify.app/" target="_blank" rel="noopener">SandCubes <span>Open live demo</span></a></li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <dl>
+      <dt>Web 3D</dt><dd>JavaScript, Three.js, Cocos Creator, Babylon.js, Vite</dd>
+      <dt>Systems</dt><dd>C, C++, Emscripten, GLSL</dd>
+      <dt>Foundations</dt><dd>Advanced mathematics, data structures and algorithms</dd>
+      <dt>Art tools</dt><dd>Blender, GIMP</dd>
+    </dl>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <p>MSc Mathematics, Pondicherry University, 2018–2023</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Based in Hyderabad, Telangana. Email is the quickest way to reach me.</p>
+    <div class="cta">
+      <a href="mailto:parthipank51@gmail.com">parthipank51@gmail.com</a>
+      <a href="tel:+919159962036">+91 9159962036</a>
+    </div>
+  </section>
+  <footer>Move your pointer or touch the background to ripple the cubes.</footer>
+</main>
+<div id="hud" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var canvas=document.getElementById('bg'), hud=document.getElementById('hud');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var renderer;
+  try{
+    if(!window.THREE) throw new Error('no three');
+    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
+  }catch(e){document.body.classList.add('nogl');hud.style.display='none';return;}
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+
+  var BG=0xbcdcf5;
+  var scene=new THREE.Scene();
+  var sc=document.createElement('canvas'); sc.width=2; sc.height=256;
+  var sx=sc.getContext('2d'), sg=sx.createLinearGradient(0,0,0,256);
+  sg.addColorStop(0,'#2467c9'); sg.addColorStop(.22,'#6fb0f0'); sg.addColorStop(.42,'#bcdcf5'); sg.addColorStop(1,'#bcdcf5');
+  sx.fillStyle=sg; sx.fillRect(0,0,2,256);
+  scene.background=new THREE.CanvasTexture(sc);
+  scene.fog=new THREE.Fog(BG,20,60);
+  var cam=new THREE.PerspectiveCamera(50,1,0.1,200);
+
+  var N=90, S=1.1, COUNT=N*N;
+  var mesh=new THREE.InstancedMesh(new THREE.BoxGeometry(S*0.82,1,S*0.82),new THREE.MeshLambertMaterial(),COUNT);
+  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  mesh.frustumCulled=false;
+  scene.add(mesh);
+  scene.add(new THREE.HemisphereLight(0xdcecff,0x1d4a85,1.15));
+  var sun=new THREE.DirectionalLight(0xffe2b0,0.9); sun.position.set(-10,20,8); scene.add(sun);
+
+  var X=new Float32Array(COUNT), Z=new Float32Array(COUNT), k=0, i, j;
+  for(i=0;i<N;i++)for(j=0;j<N;j++){X[k]=(i-N/2)*S;Z[k]=(j-N/2)*S;k++;}
+
+  /* Clouds: soft puff sprites drifting in the sky */
+  var clouds=[], cti, cq;
+  for(cti=0;cti<3;cti++){
+    var cc=document.createElement('canvas'); cc.width=256; cc.height=128;
+    var cx2=cc.getContext('2d');
+    for(cq=0;cq<16;cq++){
+      var px=40+Math.random()*176, py=64+(Math.random()-.5)*34-Math.abs(px-128)*.1, pr=18+Math.random()*26;
+      var gg=cx2.createRadialGradient(px,py,0,px,py,pr);
+      gg.addColorStop(0,'rgba(255,255,255,.95)'); gg.addColorStop(1,'rgba(255,255,255,0)');
+      cx2.fillStyle=gg; cx2.beginPath(); cx2.arc(px,py,pr,0,6.283); cx2.fill();
+    }
+    var ctex=new THREE.CanvasTexture(cc);
+    for(cq=0;cq<3;cq++){
+      var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:ctex,transparent:true,opacity:.9,depthWrite:false,fog:false}));
+      var cw=45+Math.random()*40;
+      sp.scale.set(cw,cw*.5,1);
+      sp.position.set(0,15+Math.random()*20,-85-Math.random()*40);
+      sp.userData={x:Math.random()*260-130,s:1.5+Math.random()*2.5};
+      scene.add(sp); clouds.push(sp);
+    }
+  }
+  /* Placeholder UFO: swap this group for a glTF model later */
+  var ufo=new THREE.Group(), ring=new THREE.Group();
+  var disc=new THREE.Mesh(new THREE.SphereGeometry(1,32,16),new THREE.MeshStandardMaterial({color:0x8c9186,metalness:.85,roughness:.28}));
+  disc.scale.set(1.7,.3,1.7); ufo.add(disc);
+  var dome=new THREE.Mesh(new THREE.SphereGeometry(.62,24,12,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0xb6ff00,emissive:0x4f7300,transparent:true,opacity:.88}));
+  dome.position.y=.15; ufo.add(dome);
+  var bulb=new THREE.MeshBasicMaterial({color:0xffd24a}), bi;
+  for(bi=0;bi<8;bi++){var b=new THREE.Mesh(new THREE.SphereGeometry(.1,8,8),bulb);var a=bi/8*Math.PI*2;b.position.set(Math.cos(a)*1.45,-.02,Math.sin(a)*1.45);ring.add(b);}
+  ufo.add(ring);
+  var beam=new THREE.Mesh(new THREE.ConeGeometry(1.5,4.5,28,1,true),new THREE.MeshBasicMaterial({color:0xb6ff00,transparent:true,opacity:.14,depthWrite:false,side:THREE.DoubleSide}));
+  beam.position.y=-2.4; ufo.add(beam);
+  scene.add(ufo);
+  var dummy=new THREE.Object3D(), col=new THREE.Color();
+  var lo=new THREE.Color(0x07214d), mid=new THREE.Color(0x1f7fe0), hi=new THREE.Color(0xbfeaff);
+  var mx=0,mz=0,tx=0,tz=0;
+  var ndc=new THREE.Vector2(), hasPtr=false, ray=new THREE.Raycaster(), plane=new THREE.Plane(new THREE.Vector3(0,1,0),-7), hit=new THREE.Vector3();
+
+  function update(t,amp){
+    for(var n=0;n<COUNT;n++){
+      var x=X[n], z=Z[n];
+      var h=Math.sin(x*.32+t)*.7+Math.sin(z*.27-t*.8)*.6+Math.sin(Math.sqrt(x*x+z*z)*.28-t*1.3)*.8;
+      var dx=x-mx, dz=z-mz, d2=dx*dx+dz*dz, g=Math.exp(-d2*.02);
+      h+=g*Math.sin(Math.sqrt(d2)*1.4-t*5)*1.1;
+      h*=amp;
+      var sy=Math.max(.15,(h+2.2)*amp+.15*(1-amp));
+      dummy.position.set(x,sy/2,z);
+      dummy.scale.set(1,sy,1);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(n,dummy.matrix);
+      var u=Math.min(1,Math.max(0,(h+2.2)/4.4));
+      if(u<.6){col.copy(lo).lerp(mid,u/.6);}else{col.copy(mid).lerp(hi,(u-.6)/.4);}
+      col.lerp(mid,g*.4);
+      mesh.setColorAt(n,col);
+    }
+    mesh.instanceMatrix.needsUpdate=true;
+    mesh.instanceColor.needsUpdate=true;
+  }
+
+  function place(){
+    var p=Math.min(1,Math.max(0,window.scrollY/Math.max(1,document.body.scrollHeight-window.innerHeight)));
+    cam.position.set(Math.sin(p*3)*10, 13-p*3, 26-p*6);
+    cam.lookAt(0,2,-20);
+  }
+  function resize(){
+    var w=window.innerWidth,h=window.innerHeight;
+    renderer.setSize(w,h,false);
+    cam.aspect=w/h; cam.fov=cam.aspect<1?72:50; cam.updateProjectionMatrix();
+  }
+  window.addEventListener('resize',function(){resize();if(reduce)draw(2,1);});
+  window.addEventListener('pointermove',function(e){
+    ndc.x=e.clientX/window.innerWidth*2-1;
+    ndc.y=-(e.clientY/window.innerHeight*2-1);
+    hasPtr=true;
+  },{passive:true});
+
+  function draw(t,amp){
+    place();update(t,amp);
+    ufo.position.set(mx,7+Math.sin(t*2)*.25,mz);
+    ufo.rotation.z=Math.max(-.4,Math.min(.4,-(tx-mx)*.08));
+    ufo.rotation.x=Math.max(-.4,Math.min(.4,(tz-mz)*.08));
+    ring.rotation.y=t*3;
+    for(var ci=0;ci<clouds.length;ci++){var cl=clouds[ci];cl.position.x=((cl.userData.x+t*cl.userData.s+130)%260)-130;}
+    ufo.scale.setScalar(.2+.8*amp);
+    renderer.render(scene,cam);
+  }
+  resize();
+
+  if(reduce){ draw(2,1); hud.textContent=COUNT.toLocaleString()+' instanced cubes, 1 draw call'; return; }
+
+  var start=performance.now(), last=start, frames=0;
+  function loop(now){
+    var t=(now-start)/1000;
+    var amp=Math.min(1,t/2.8); amp=1-Math.pow(1-amp,3);
+    if(hasPtr){
+      place(); cam.updateMatrixWorld();
+      ray.setFromCamera(ndc,cam);
+      if(ray.ray.intersectPlane(plane,hit)){tx=Math.max(-45,Math.min(45,hit.x));tz=Math.max(-40,Math.min(40,hit.z));}
+    }
+    mx+=(tx-mx)*.12; mz+=(tz-mz)*.12;
+    draw(t*.7,amp);
+    frames++;
+    if(now-last>500){
+      hud.textContent=COUNT.toLocaleString()+' instanced cubes, 1 draw call, '+Math.round(frames*1000/(now-last))+' fps';
+      frames=0; last=now;
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
 </body>
-
 </html>
