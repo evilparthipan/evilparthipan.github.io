@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b1d3a; --ink:#f2f6fc; --muted:#b3bfd4; --sand:#ffd24a; --teal:#b6ff00; --line:rgba(255,210,74,.28);
+  --bg:#0b1d3a; --ink:#f2f6fc; --muted:#b3bfd4; --sand:#b6ff00; --teal:#d9ff66; --line:rgba(182,255,0,.28);
   --font:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
   color-scheme:dark; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
@@ -22,7 +22,8 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(90deg,rgba(8,24,52,.82) 0%,rgba(8,24,52,.55) 45%,rgba(8,24,52,0) 80%)}
 main,#hud{position:relative;z-index:2}
 main{max-width:46rem;padding:0 clamp(1.25rem,6vw,5rem)}
-section{padding:5.5rem 0 1rem}
+section{padding:3rem 0 .5rem}
+#contact{padding-bottom:4rem}
 section.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:4rem 0}
 h1{font-size:clamp(3.4rem,11vw,7.5rem);line-height:.92;font-weight:800;letter-spacing:-.035em;margin:0 0 1.5rem}
 h2{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:600;letter-spacing:-.02em;margin:0 0 1.25rem;line-height:1.15}
@@ -110,7 +111,6 @@ footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
       <a href="https://www.linkedin.com/in/probablyparthipan/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </section>
-  <footer>Move your pointer or touch the background to ripple the cubes.</footer>
 </main>
 <div id="hud" aria-hidden="true"></div>
 
@@ -175,7 +175,7 @@ import * as THREE from 'three';
   disc.scale.set(1.7,.3,1.7); ufo.add(disc);
   var dome=new THREE.Mesh(new THREE.SphereGeometry(.62,24,12,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0xb6ff00,emissive:0x4f7300,transparent:true,opacity:.88}));
   dome.position.y=.15; ufo.add(dome);
-  var bulb=new THREE.MeshBasicMaterial({color:0xffd24a}), bi;
+  var bulb=new THREE.MeshBasicMaterial({color:0xb6ff00}), bi;
   for(bi=0;bi<8;bi++){var b=new THREE.Mesh(new THREE.SphereGeometry(.1,8,8),bulb);var a=bi/8*Math.PI*2;b.position.set(Math.cos(a)*1.45,-.02,Math.sin(a)*1.45);ring.add(b);}
   ufo.add(ring);
   var beam=new THREE.Mesh(new THREE.ConeGeometry(1.5,4.5,28,1,true),new THREE.MeshBasicMaterial({color:0xb6ff00,transparent:true,opacity:.14,depthWrite:false,side:THREE.DoubleSide}));
