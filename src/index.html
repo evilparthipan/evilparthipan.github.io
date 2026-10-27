@@ -17,7 +17,7 @@
 html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1.05rem;line-height:1.6;font-weight:300}
 body.nogl{background:radial-gradient(120% 80% at 70% 100%,#1f6fd0,var(--bg))}
-#bg{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+#bg{position:fixed;top:0;left:0;width:100%;height:100vh;height:100dvh;display:block;z-index:0}
 body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(90deg,rgba(8,24,52,.82) 0%,rgba(8,24,52,.55) 45%,rgba(8,24,52,0) 80%)}
 main,#hud{position:relative;z-index:2}
@@ -104,24 +104,23 @@ footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Based in Hyderabad, Telangana. Email is the quickest way to reach me.</p>
     <div class="cta">
       <a href="mailto:parthipank51@gmail.com">parthipank51@gmail.com</a>
       <a href="tel:+919159962036">+91 9159962036</a>
+      <a href="https://www.linkedin.com/in/probablyparthipan/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </section>
   <footer>Move your pointer or touch the background to ripple the cubes.</footer>
 </main>
 <div id="hud" aria-hidden="true"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
+<script type="module">
+import * as THREE from 'three';
 (function(){
   var canvas=document.getElementById('bg'), hud=document.getElementById('hud');
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var renderer;
   try{
-    if(!window.THREE) throw new Error('no three');
     renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true});
   }catch(e){document.body.classList.add('nogl');hud.style.display='none';return;}
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
@@ -133,6 +132,7 @@ footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
   sg.addColorStop(0,'#2467c9'); sg.addColorStop(.22,'#6fb0f0'); sg.addColorStop(.42,'#bcdcf5'); sg.addColorStop(1,'#bcdcf5');
   sx.fillStyle=sg; sx.fillRect(0,0,2,256);
   scene.background=new THREE.CanvasTexture(sc);
+  scene.background.colorSpace=THREE.SRGBColorSpace;
   scene.fog=new THREE.Fog(BG,20,60);
   var cam=new THREE.PerspectiveCamera(50,1,0.1,200);
 
@@ -141,8 +141,8 @@ footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
   mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   mesh.frustumCulled=false;
   scene.add(mesh);
-  scene.add(new THREE.HemisphereLight(0xdcecff,0x1d4a85,1.15));
-  var sun=new THREE.DirectionalLight(0xffe2b0,0.9); sun.position.set(-10,20,8); scene.add(sun);
+  scene.add(new THREE.HemisphereLight(0xdcecff,0x1d4a85,Math.PI*1.15));
+  var sun=new THREE.DirectionalLight(0xffe2b0,Math.PI*0.9); sun.position.set(-10,20,8); scene.add(sun);
 
   var X=new Float32Array(COUNT), Z=new Float32Array(COUNT), k=0, i, j;
   for(i=0;i<N;i++)for(j=0;j<N;j++){X[k]=(i-N/2)*S;Z[k]=(j-N/2)*S;k++;}
@@ -159,6 +159,7 @@ footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
       cx2.fillStyle=gg; cx2.beginPath(); cx2.arc(px,py,pr,0,6.283); cx2.fill();
     }
     var ctex=new THREE.CanvasTexture(cc);
+    ctex.colorSpace=THREE.SRGBColorSpace;
     for(cq=0;cq<3;cq++){
       var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:ctex,transparent:true,opacity:.9,depthWrite:false,fog:false}));
       var cw=45+Math.random()*40;
@@ -212,14 +213,25 @@ footer{padding:5rem 0 4rem;color:var(--muted);font-size:.9rem}
     cam.lookAt(0,2,-20);
   }
   function resize(){
-    var w=window.innerWidth,h=window.innerHeight;
+    var w=canvas.clientWidth,h=canvas.clientHeight;
+    if(!w||!h)return;
     renderer.setSize(w,h,false);
     cam.aspect=w/h; cam.fov=cam.aspect<1?72:50; cam.updateProjectionMatrix();
   }
-  window.addEventListener('resize',function(){resize();if(reduce)draw(2,1);});
+  function onResize(){resize();if(reduce)draw(2,1);}
+  window.addEventListener('resize',onResize);
+  window.addEventListener('orientationchange',onResize);
+  /* The URL bar collapsing does not reliably fire 'resize' on mobile, so also
+     track the canvas's own box and the visual viewport. */
+  if(window.ResizeObserver){new ResizeObserver(onResize).observe(canvas);}
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',onResize);
+    window.visualViewport.addEventListener('scroll',onResize);
+  }
   window.addEventListener('pointermove',function(e){
-    ndc.x=e.clientX/window.innerWidth*2-1;
-    ndc.y=-(e.clientY/window.innerHeight*2-1);
+    var w=canvas.clientWidth||window.innerWidth,h=canvas.clientHeight||window.innerHeight;
+    ndc.x=e.clientX/w*2-1;
+    ndc.y=-(e.clientY/h*2-1);
     hasPtr=true;
   },{passive:true});
 
